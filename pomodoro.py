@@ -49,6 +49,7 @@ class Pomodoro():
             n.show()
         if self.sound_available:
             playsound.playsound(self.alarm_path)
+        self.last_segment_timestamp = datetime.now().isoformat()[len("2020-01-24T"):-7]
 
     def session(self):
         self.run_progress(f'Session {self.total_sessions+1}',self.session_mins)
@@ -70,7 +71,7 @@ class Pomodoro():
             while should_continue:
                 print(f'Total Sessions: {self.total_sessions} ({self.total_sessions*25/60:.2f} hours worked), Sessions since long break: {self.sessions_since_break}')
                 if last_session_type is not None:
-                    print(f'{last_session_type} ended at: {datetime.now().isoformat()[len("2020-01-24T"):-7]}',end='')
+                    print(f'{last_session_type} ended at: {self.last_segment_timestamp}',end='')
                     if self.sessions_since_break > 4:
                         print(' - Long break recommended!')
                     else:
